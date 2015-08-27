@@ -8,13 +8,13 @@ WIP
  - magic number: 4C 01 2A 00
  - header shall be little endian encoded
 
-Support
+#### Supported Languages
 
  - go: https://github.com/bartke/go-protobuf-archive
 
 ## Spec
 
-### File Header (16-bytes)
+### File Header (8-bytes)
 
 ```
     0                   1                   2                   3   
@@ -22,11 +22,8 @@ Support
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                          Magic Number                         |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |    Version    |  Payload Hdr  |     data offset in bytes      |
-   |               |     Length    |     (max 64-kbyte header)     |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                  Number of Entries in Archive                 |
-   |                           (8-bytes)                           |
+   |    Version    |  Payload Hdr  |     Data Offset in bytes      |
+   |               |  len in bytes |     (max 64-kbyte header)     |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ```
 
@@ -36,9 +33,10 @@ Support
     0                   1                   2                   3   
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |              payload length                   |               |
+   |            Payload Length-prefix              |               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+               |
-   |                            payload                            |
+   |                                                               |
+   |                            Payload                            |
    |                                                               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ```
